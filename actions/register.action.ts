@@ -37,6 +37,43 @@ export const createUser = async ({
   }
 };
 
+export const updateUser = async ({
+  id,
+  name,
+  email,
+  password,
+  confirmPassword,
+  dni,
+  address,
+}: RegisterFormType & { id: number }) => {
+  try {
+    let updatePass = {};
+    if (password.length > 0) {
+      if (password !== confirmPassword)
+        return { error: "Las contraseñas no coinciden" };
+      const hashedPassword = await hash(password, 10);
+      updatePass = { password: hashedPassword };
+    }
+
+    const userCreated = await prisma.user.update({
+      data: {
+        ...updatePass,
+        name,
+        email,
+        dni,
+        address,
+      },
+      where: {
+        id,
+      },
+    });
+    return { success: userCreated };
+  } catch (error) {
+    console.log("🚀 ~ error:", error);
+    return { error: "Ocurrio un error" };
+  }
+};
+
 export const loginUser = async ({ email, password }: LoginFormType) => {
   try {
     const myUser = await prisma.user.findFirst({ where: { email } });

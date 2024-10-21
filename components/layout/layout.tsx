@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Layout = ({ children }: Props) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
 

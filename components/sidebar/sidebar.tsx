@@ -1,7 +1,6 @@
 import React from "react";
 import { Sidebar } from "./sidebar.styles";
 import { Avatar, Tooltip } from "@nextui-org/react";
-import { CompaniesDropdown } from "./companies-dropdown";
 import { HomeIcon } from "../icons/sidebar/home-icon";
 import { PaymentsIcon } from "../icons/sidebar/payments-icon";
 import { BalanceIcon } from "../icons/sidebar/balance-icon";
@@ -19,8 +18,9 @@ import { FilterIcon } from "../icons/sidebar/filter-icon";
 import { useSidebarContext } from "../layout/layout-context";
 import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
 import { usePathname } from "next/navigation";
+import { UserType } from "@/helpers/types";
 
-export const SidebarWrapper = () => {
+export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
   const { collapsed, setCollapsed } = useSidebarContext();
 
@@ -34,9 +34,6 @@ export const SidebarWrapper = () => {
           collapsed: collapsed,
         })}
       >
-        <div className={Sidebar.Header()}>
-          <CompaniesDropdown />
-        </div>
         <div className="flex flex-col justify-between h-full">
           <div className={Sidebar.Body()}>
             <SidebarItem

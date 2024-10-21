@@ -121,8 +121,9 @@ export const Register = () => {
                 onChange={handleChange("address")}
               />
               <Input
+              isDisabled
                 variant="bordered"
-                label="Direccion"
+                label="Fecha de nacimiento"
                 type="date"
                 value={values.birthDay || ""}
                 isInvalid={!!errors.birthDay && !!touched.birthDay}

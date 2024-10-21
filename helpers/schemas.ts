@@ -20,3 +20,12 @@ export const RegisterSchema = object().shape({
     .required("La confirmación de la contraseña es obligatoria")
     .oneOf([ref("password")], "Las contraseñas deben coincidir"),
 });
+
+export const UpdateUserSchema = object().shape({
+  name: string().required("El nombre es obligatorio"),
+  dni: string().required("El DNI es obligatorio"),
+  address: string().required("La dirección es obligatoria"),
+  email: string()
+    .email("Este campo debe ser un correo electrónico válido")
+    .required("El correo electrónico es obligatorio")
+});

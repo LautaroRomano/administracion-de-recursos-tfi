@@ -17,10 +17,10 @@ export type RegisterFormType = {
 
 export type UserType = {
   id: number;
-  email: String;
-  name: String;
-  address?: String | null;
-  password?: String | null;
-  dni?: String | null;
+  email: string;
+  name: string;
+  address?: string | null;
+  password?: string | null;
+  dni: string;
   birthDay?: Date | null;
 };
