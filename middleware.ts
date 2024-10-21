@@ -8,13 +8,15 @@ export function middleware(request: NextRequest) {
     (pathname === "/login" || pathname === "/register") &&
     request.cookies.has("userAuth")
   )
-    return NextResponse.redirect(new URL("/", request.url));
+    // return NextResponse.redirect(new URL("/", request.url));
+    NextResponse.next();
 
   if (
     (pathname === "/" || pathname === "/accounts") &&
     !request.cookies.has("userAuth")
   )
-    return NextResponse.redirect(new URL("/login", request.url));
+  NextResponse.next();
+    // return NextResponse.redirect(new URL("/login", request.url));
 
   return NextResponse.next();
 }

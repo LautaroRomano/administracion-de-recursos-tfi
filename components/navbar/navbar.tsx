@@ -7,12 +7,14 @@ import { SearchIcon } from "../icons/searchicon";
 import { BurguerButton } from "./burguer-button";
 import { NotificationsDropdown } from "./notifications-dropdown";
 import { UserDropdown } from "./user-dropdown";
+import { UserType } from "@/helpers/types";
 
 interface Props {
   children: React.ReactNode;
+  user: UserType;
 }
 
-export const NavbarWrapper = ({ children }: Props) => {
+export const NavbarWrapper = ({ children, user }: Props) => {
   return (
     <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <Navbar
@@ -59,7 +61,7 @@ export const NavbarWrapper = ({ children }: Props) => {
             <GithubIcon />
           </Link>
           <NavbarContent>
-            <UserDropdown />
+            <UserDropdown user={user}/>
           </NavbarContent>
         </NavbarContent>
       </Navbar>

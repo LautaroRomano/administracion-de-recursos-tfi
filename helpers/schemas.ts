@@ -2,18 +2,21 @@ import { object, ref, string } from "yup";
 
 export const LoginSchema = object().shape({
   email: string()
-    .email("This field must be an email")
-    .required("Email is required"),
-  password: string().required("Password is required"),
+    .email("Este campo debe ser un correo electrónico válido")
+    .required("El correo electrónico es obligatorio"),
+  password: string().required("La contraseña es obligatoria"),
 });
 
 export const RegisterSchema = object().shape({
-  name: string().required("Name is required"),
+  name: string().required("El nombre es obligatorio"),
+  dni: string().required("El DNI es obligatorio"),
+  address: string().required("La dirección es obligatoria"),
+  birthDay: string().required("La fecha de nacimiento es obligatoria"),
   email: string()
-    .email("This field must be an email")
-    .required("Email is required"),
-  password: string().required("Password is required"),
+    .email("Este campo debe ser un correo electrónico válido")
+    .required("El correo electrónico es obligatorio"),
+  password: string().required("La contraseña es obligatoria"),
   confirmPassword: string()
-    .required("Confirm password is required")
-    .oneOf([ref("password")], "Passwords must match"),
+    .required("La confirmación de la contraseña es obligatoria")
+    .oneOf([ref("password")], "Las contraseñas deben coincidir"),
 });
