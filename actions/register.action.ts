@@ -1,7 +1,6 @@
 "use server";
 import { LoginFormType, RegisterFormType } from "@/helpers/types";
 import { PrismaClient } from "@prisma/client";
-import { createAuthCookie } from "./auth.action";
 import { hash, compare } from "bcrypt";
 
 const prisma = new PrismaClient();

@@ -23,7 +23,7 @@ export type UserType = {
   name: string;
   address?: string | null;
   password?: string | null;
-  dni: string;
+  dni?: string|null;
   birthDay?: Date | null;
   role?: string | null;
   area?: string | null;

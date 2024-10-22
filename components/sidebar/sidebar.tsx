@@ -4,7 +4,6 @@ import { Avatar, Tooltip } from "@nextui-org/react";
 import { HomeIcon } from "../icons/sidebar/home-icon";
 import { PaymentsIcon } from "../icons/sidebar/payments-icon";
 import { BalanceIcon } from "../icons/sidebar/balance-icon";
-import { AccountsIcon } from "../icons/sidebar/accounts-icon";
 import { CustomersIcon } from "../icons/sidebar/customers-icon";
 import { ProductsIcon } from "../icons/sidebar/products-icon";
 import { ReportsIcon } from "../icons/sidebar/reports-icon";
@@ -14,12 +13,12 @@ import { SettingsIcon } from "../icons/sidebar/settings-icon";
 import { CollapseItems } from "./collapse-items";
 import { SidebarItem } from "./sidebar-item";
 import { SidebarMenu } from "./sidebar-menu";
-import { FilterIcon } from "../icons/sidebar/filter-icon";
 import { useSidebarContext } from "../layout/layout-context";
-import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
 import { usePathname } from "next/navigation";
 import { UserType } from "@/helpers/types";
 import { RiProductHuntFill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
+
 
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
@@ -64,33 +63,14 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
               <SidebarItem
                 isActive={pathname === "/proveedores"}
                 title="Proveedores"
-                icon={<RiProductHuntFill size={24} color="#717171"/>}
+                icon={<RiProductHuntFill size={24} color="#717171" />}
                 href="proveedores"
               />
               <SidebarItem
-                isActive={pathname === "/payments"}
-                title="Payments"
-                icon={<PaymentsIcon />}
-              />
-              <CollapseItems
-                icon={<BalanceIcon />}
-                items={["Banks Accounts", "Credit Cards", "Loans"]}
-                title="Balances"
-              />
-              <SidebarItem
-                isActive={pathname === "/customers"}
-                title="Customers"
-                icon={<CustomersIcon />}
-              />
-              <SidebarItem
-                isActive={pathname === "/products"}
-                title="Products"
-                icon={<ProductsIcon />}
-              />
-              <SidebarItem
-                isActive={pathname === "/reports"}
-                title="Reports"
-                icon={<ReportsIcon />}
+                isActive={pathname === "/usuarios"}
+                title="Usuarios"
+                icon={<FaUser size={18} color="#717171" />}
+                href="usuarios"
               />
             </SidebarMenu>
           </div>

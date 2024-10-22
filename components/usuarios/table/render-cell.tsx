@@ -27,6 +27,13 @@ export const RenderCell = ({ data, columnKey }: Props) => {
           <span>{data.email}</span>
         </div>
       );
+    case "birthDay":
+      return (
+        <div>
+          <span>{cellValue.toLocaleDateString()}</span>
+        </div>
+      );
+
     case "status":
       return (
         <Chip
@@ -49,14 +56,14 @@ export const RenderCell = ({ data, columnKey }: Props) => {
         <div className="flex items-center gap-4">
           <div>
             <Tooltip content="Detalles">
-              <button disabled={true} onClick={() => console.log("Ver proveedor", data.id)}>
+              <button disabled={true} onClick={() => console.log("Ver Usuario", data.id)}>
                 <EyeIcon size={20} fill="#979797" />
               </button>
             </Tooltip>
           </div>
           <div>
             <Tooltip content="Editar" color="secondary">
-              <button disabled={true} onClick={() => console.log("Editar proveedor", data.id)}>
+              <button onClick={() => console.log("Editar Usuario", data.id)}>
                 <EditIcon size={20} fill="#979797" />
               </button>
             </Tooltip>
@@ -67,7 +74,7 @@ export const RenderCell = ({ data, columnKey }: Props) => {
               color="danger"
               onClick={() => console.log("Eliminar proveedor", data.id)}
             >
-              <button disabled={true}>
+              <button>
                 <DeleteIcon size={20} fill="#FF0080" />
               </button>
             </Tooltip>
