@@ -1,4 +1,4 @@
-import { object, ref, string } from "yup";
+import { number, object, ref, string } from "yup";
 
 export const LoginSchema = object().shape({
   email: string()
@@ -32,4 +32,13 @@ export const UpdateUserSchema = object().shape({
     .required("El correo electrónico es obligatorio"),
   role: string().required("El rol del usuario es obligatorio"),
   area: string().required("El area del usuario es obligatoria"),
+});
+
+export const createProveedorSchema = object().shape({
+  email: string().email("Correo inválido").required("Correo requerido"),
+  name: string().required("Nombre requerido"),
+  phone: string().optional(),
+  address: string().optional(),
+  price: number().optional(),
+  period: string().optional(),
 });

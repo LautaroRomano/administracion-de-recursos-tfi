@@ -14,13 +14,29 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String
   address   String?
-  password String
-  dni String?
-  birthDay DateTime?
-  role String?
-  area String?
+  password  String
+  dni       String?
+  birthDay  DateTime?
+  role      String?
+  area      String?
+  createdAt DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+  disabled  Boolean   @default(false)
+}
+
+model Proveedores {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  phone     String?
+  address   String?
+  price     Float?
+  period    String?
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  disabled  Boolean  @default(false)
 }

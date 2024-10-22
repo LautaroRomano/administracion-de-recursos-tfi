@@ -28,3 +28,13 @@ export type UserType = {
   role?: string | null;
   area?: string | null;
 };
+
+export type ProveedorType = {
+  id: number;
+  email: string;
+  name: string;
+  phone?: string | null;
+  address?: string | null;
+  price?: number | null;
+  period?: string | null;
+};

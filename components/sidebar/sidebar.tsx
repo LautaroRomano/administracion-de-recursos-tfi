@@ -19,6 +19,7 @@ import { useSidebarContext } from "../layout/layout-context";
 import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
 import { usePathname } from "next/navigation";
 import { UserType } from "@/helpers/types";
+import { RiProductHuntFill } from "react-icons/ri";
 
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
@@ -61,10 +62,10 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
             </SidebarMenu>
             <SidebarMenu title="Menu Administrador">
               <SidebarItem
-                isActive={pathname === "/accounts"}
-                title="Accounts"
-                icon={<AccountsIcon />}
-                href="accounts"
+                isActive={pathname === "/proveedores"}
+                title="Proveedores"
+                icon={<RiProductHuntFill size={24} color="#717171"/>}
+                href="proveedores"
               />
               <SidebarItem
                 isActive={pathname === "/payments"}

@@ -12,7 +12,7 @@ import React, { useCallback } from "react";
 import { DarkModeSwitch } from "./darkmodeswitch";
 import { useRouter } from "next/navigation";
 import { UserType } from "@/helpers/types";
-import { UpdateUser } from "../accounts/update-user";
+import { UpdateUser } from "./update-user";
 
 export const UserDropdown = ({ user }: { user: UserType | null }) => {
   const router = useRouter();
