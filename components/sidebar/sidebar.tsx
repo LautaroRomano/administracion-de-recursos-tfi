@@ -18,6 +18,7 @@ import { usePathname } from "next/navigation";
 import { UserType } from "@/helpers/types";
 import { RiProductHuntFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
+import { GrUserWorker } from "react-icons/gr";
 
 
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
@@ -42,23 +43,6 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
               isActive={pathname === "/"}
               href="/"
             />
-            <SidebarMenu title="General">
-              <SidebarItem
-                isActive={pathname === "/developers"}
-                title="Developers"
-                icon={<DevIcon />}
-              />
-              <SidebarItem
-                isActive={pathname === "/view"}
-                title="View Test Data"
-                icon={<ViewIcon />}
-              />
-              <SidebarItem
-                isActive={pathname === "/settings"}
-                title="Settings"
-                icon={<SettingsIcon />}
-              />
-            </SidebarMenu>
             <SidebarMenu title="Menu Administrador">
               <SidebarItem
                 isActive={pathname === "/proveedores"}
@@ -71,6 +55,14 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
                 title="Usuarios"
                 icon={<FaUser size={18} color="#717171" />}
                 href="usuarios"
+              />
+            </SidebarMenu>
+            <SidebarMenu title="Menu RRHH">
+              <SidebarItem
+                isActive={pathname === "/trabajadores"}
+                title="Trabajadores"
+                icon={<GrUserWorker size={24} color="#717171"/>}
+                href="/trabajadores"
               />
             </SidebarMenu>
           </div>

@@ -40,3 +40,44 @@ model Proveedores {
   updateAt  DateTime @updatedAt
   disabled  Boolean  @default(false)
 }
+
+model Trabajadores {
+  id                   Int                    @id @default(autoincrement())
+  email                String                 @unique
+  name                 String
+  phone                String?
+  bio                  String?
+  location             Locations?             @relation(fields: [locationId], references: [id])
+  locationId           Int?
+  rating               Float?
+  totalReviews         Int                    @default(0)
+  address              String?
+  availability         Boolean                @default(true)
+  createdAt            DateTime               @default(now())
+  updateAt             DateTime               @updatedAt
+  disabled             Boolean                @default(false)
+  profilePicture       String?
+  TrabajadorCategories TrabajadorCategories[]
+}
+
+model Locations {
+  id           Int            @id @default(autoincrement())
+  description  String
+  trabajadores Trabajadores[]
+}
+
+model Categories {
+  id                   Int                    @id @default(autoincrement())
+  description          String
+  TrabajadorCategories TrabajadorCategories[]
+}
+
+// Tabla intermedia para la relación de muchos a muchos entre Trabajadores y Categories
+model TrabajadorCategories {
+  trabajadorId Int
+  categoryId   Int
+  trabajador   Trabajadores @relation(fields: [trabajadorId], references: [id], onDelete: Cascade)
+  category     Categories   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([trabajadorId, categoryId])
+}
