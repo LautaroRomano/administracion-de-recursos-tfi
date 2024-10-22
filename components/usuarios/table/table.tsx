@@ -11,7 +11,13 @@ import { columns } from "./data"; // Aquí defines las 6 columnas, incluida "act
 import { RenderCell } from "./render-cell";
 import { ProveedorType } from "@/helpers/types";
 
-export const TableWrapper = ({ data }: { data: ProveedorType[] }) => {
+export const TableWrapper = ({
+  data,
+  disableUser,
+}: {
+  data: ProveedorType[];
+  disableUser: Function;
+}) => {
   return (
     <div className="w-full flex flex-col gap-4">
       <Table aria-label="Example table with custom cells">
@@ -32,7 +38,11 @@ export const TableWrapper = ({ data }: { data: ProveedorType[] }) => {
             <TableRow key={item.id}>
               {columns.map((column) => (
                 <TableCell key={column.uid}>
-                  {RenderCell({ data: item, columnKey: column.uid })}
+                  {RenderCell({
+                    data: item,
+                    columnKey: column.uid,
+                    disableUser,
+                  })}
                 </TableCell>
               ))}
             </TableRow>

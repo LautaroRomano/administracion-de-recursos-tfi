@@ -3,14 +3,18 @@ import React from "react";
 import { DeleteIcon } from "@/components/icons/table/delete-icon";
 import { EditIcon } from "@/components/icons/table/edit-icon";
 import { EyeIcon } from "@/components/icons/table/eye-icon";
-import { ProveedorType } from "@/helpers/types";
+import { UserType } from "@/helpers/types";
 
 interface Props {
-  data: ProveedorType;
+  data: UserType;
   columnKey: string;
+  disableUser: Function;
 }
 
-export const RenderCell = ({ data, columnKey }: Props) => {
+export const RenderCell = ({ data, columnKey, disableUser }: Props) => {
+  const userItem = localStorage.getItem("userLogged");
+  const userLogged = userItem ? JSON.parse(userItem) : null;
+
   // @ts-ignore
   const cellValue = data[columnKey];
 
@@ -34,20 +38,10 @@ export const RenderCell = ({ data, columnKey }: Props) => {
         </div>
       );
 
-    case "status":
+    case "disabled":
       return (
-        <Chip
-          size="sm"
-          variant="flat"
-          color={
-            cellValue === "active"
-              ? "success"
-              : cellValue === "paused"
-              ? "danger"
-              : "warning"
-          }
-        >
-          <span className="capitalize text-xs">{cellValue}</span>
+        <Chip size="sm" variant="flat" color={cellValue ? "danger" : "success"}>
+          <span className="capitalize text-xs">{cellValue ? "SI" : "NO"}</span>
         </Chip>
       );
 
@@ -56,7 +50,10 @@ export const RenderCell = ({ data, columnKey }: Props) => {
         <div className="flex items-center gap-4">
           <div>
             <Tooltip content="Detalles">
-              <button disabled={true} onClick={() => console.log("Ver Usuario", data.id)}>
+              <button
+                disabled={true}
+                onClick={() => console.log("Ver Usuario", data.id)}
+              >
                 <EyeIcon size={20} fill="#979797" />
               </button>
             </Tooltip>
@@ -70,11 +67,19 @@ export const RenderCell = ({ data, columnKey }: Props) => {
           </div>
           <div>
             <Tooltip
-              content="Eliminar"
+              content={
+                data.id === userLogged?.id
+                  ? "No puedes borrarte a ti mismo"
+                  : "Eliminar"
+              }
               color="danger"
-              onClick={() => console.log("Eliminar proveedor", data.id)}
             >
-              <button>
+              <button
+                disabled={data.id === userLogged?.id}
+                onClick={() => {
+                  disableUser(data.id, !data.disabled);
+                }}
+              >
                 <DeleteIcon size={20} fill="#FF0080" />
               </button>
             </Tooltip>

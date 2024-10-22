@@ -7,12 +7,13 @@ import { UserType } from "@/helpers/types";
 import { toast } from "react-toastify";
 import { exportProveedoresToCSV } from "./exportProveedoresToCSV";
 import { TbFileExport } from "react-icons/tb";
-import { getUsers } from "@/actions/users.action";
+import { disableUser, getUsers } from "@/actions/users.action";
 
 const initDataState: UserType[] = [];
 
 export const Usuarios = () => {
   const [data, setData] = useState(initDataState);
+  const [search, setSearch] = useState("");
 
   const getData = async (search: string | null) => {
     const res = await getUsers(search);
@@ -22,9 +23,22 @@ export const Usuarios = () => {
     if (Array.isArray(res.success)) setData(res.success);
   };
 
+  const handleDisableUser = async (id: number, value: boolean) => {
+    const res = await disableUser(id, value);
+    if (res.error) {
+      return toast.error(res.error);
+    }
+    toast.success("Usuario deshabilitado con exito!");
+    getData(search.length > 0 ? search : null);
+  };
+
   useEffect(() => {
     getData(null);
   }, []);
+
+  useEffect(() => {
+    getData(search.length > 0 ? search : null);
+  }, [search]);
 
   const handleExportCSV = () => {
     if (data.length === 0) {
@@ -44,13 +58,11 @@ export const Usuarios = () => {
               mainWrapper: "w-full",
             }}
             placeholder="Buscar usuario"
-            onChange={({ target }) =>
-              getData(target.value.length > 0 ? target.value : null)
-            }
+            onChange={({ target }) => setSearch(target.value)}
+            value={search}
           />
         </div>
         <div className="flex flex-row gap-3.5 flex-wrap">
-          <AddProveedor refresh={getData} />
           <Button
             color="primary"
             startContent={<TbFileExport color="#fff" size={20} />}
@@ -61,7 +73,7 @@ export const Usuarios = () => {
         </div>
       </div>
       <div className="max-w-[95rem] mx-auto w-full">
-        <TableWrapper data={data} />
+        <TableWrapper data={data} disableUser={handleDisableUser} />
       </div>
     </div>
   );

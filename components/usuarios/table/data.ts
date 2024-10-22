@@ -7,5 +7,6 @@ export const columns = [
   { name: "Rol", uid: "role" },
   { name: "Area", uid: "area" }, 
   { name: "Fecha de Nac", uid: "birthDay" },
+  { name: "Deshabilitado", uid: "disabled" },
   { name: "Acciones", uid: "actions" },
 ];

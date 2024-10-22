@@ -83,6 +83,13 @@ export const updateUser = async ({
 
 export const loginUser = async ({ email, password }: LoginFormType) => {
   try {
+    const userDisabled = await prisma.user.findFirst({
+      where: { AND: [{ email }, { disabled: true }] },
+    });
+
+    if (userDisabled && userDisabled.id)
+      return { error: "Usuario deshabilitado" };
+
     const myUser = await prisma.user.findFirst({ where: { email } });
     if (!myUser?.id) return { error: "Usuario no encontrado" };
 

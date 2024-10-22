@@ -27,6 +27,7 @@ export type UserType = {
   birthDay?: Date | null;
   role?: string | null;
   area?: string | null;
+  disabled?: boolean | null;
 };
 
 export type ProveedorType = {

@@ -4,7 +4,6 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const getUsers = async (search: string | null) => {
-  console.log("🚀 ~ getUsers ~ search:", search)
   try {
     const data = await prisma.user.findMany({
       where: search
@@ -26,6 +25,23 @@ export const getUsers = async (search: string | null) => {
         area: true,
         birthDay: true,
         disabled: true,
+      },
+    });
+    return { success: data };
+  } catch (error) {
+    console.log("🚀 ~ error:", error);
+    return { error: "Ocurrio un error" };
+  }
+};
+
+export const disableUser = async (id: number, value: boolean) => {
+  try {
+    const data = await prisma.user.update({
+      data: {
+        disabled: value,
+      },
+      where: {
+        id,
       },
     });
     return { success: data };

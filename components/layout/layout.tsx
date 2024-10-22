@@ -28,6 +28,8 @@ export const Layout = ({ children }: Props) => {
       const userJSON = JSON.parse(user);
       if (!userJSON.id) router.replace("/login");
       else setUser(userJSON);
+    }else{
+      router.replace("/login");
     }
     return () => {};
   }, []);
