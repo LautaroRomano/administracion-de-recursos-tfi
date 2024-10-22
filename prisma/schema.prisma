@@ -21,4 +21,6 @@ model User {
   password String
   dni String?
   birthDay DateTime?
+  role String?
+  area String?
 }

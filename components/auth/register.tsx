@@ -31,6 +31,8 @@ export const Register = () => {
     dni: "",
     address: "",
     birthDay: "",
+    role: "", // Nuevo campo para el rol
+    area: "", // Nuevo campo para el área
   };
 
   const handleRegister = useCallback(
@@ -43,7 +45,7 @@ export const Register = () => {
           theme: "dark",
         });
       } else {
-        toast("Ingresaste con exito!", {
+        toast("Ingresaste con éxito!", {
           theme: "dark",
         });
         localStorage.setItem("userLogged", JSON.stringify(user.success));
@@ -75,7 +77,7 @@ export const Register = () => {
               />
               <Input
                 variant="bordered"
-                label="Correo electronico"
+                label="Correo electrónico"
                 type="email"
                 value={values.email}
                 isInvalid={!!errors.email && !!touched.email}
@@ -113,7 +115,7 @@ export const Register = () => {
               />
               <Input
                 variant="bordered"
-                label="Direccion"
+                label="Dirección"
                 type="text"
                 value={values.address || ""}
                 isInvalid={!!errors.address && !!touched.address}
@@ -121,7 +123,6 @@ export const Register = () => {
                 onChange={handleChange("address")}
               />
               <Input
-              isDisabled
                 variant="bordered"
                 label="Fecha de nacimiento"
                 type="date"
@@ -130,6 +131,45 @@ export const Register = () => {
                 errorMessage={errors.birthDay}
                 onChange={handleChange("birthDay")}
               />
+
+              {/* Select para el rol */}
+              <div>
+                <label className="block text-sm font-medium text-gray-300">
+                  Rol
+                </label>
+                <select
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
+                  value={values.role || ""}
+                  onChange={handleChange("role")}
+                >
+                  <option value="" label="Seleccione un rol" />
+                  <option value="administrador" label="Administrador" />
+                  <option value="empleado" label="Empleado" />
+                </select>
+                {errors.role && touched.role && (
+                  <div className="text-red-500 text-xs mt-1">{errors.role}</div>
+                )}
+              </div>
+
+              {/* Select para el área */}
+              <div>
+                <label className="block text-sm font-medium text-gray-300">
+                  Área
+                </label>
+                <select
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
+                  value={values.area || ""}
+                  onChange={handleChange("area")}
+                >
+                  <option value="" label="Seleccione un área" />
+                  <option value="RRHH" label="RRHH" />
+                  <option value="Finanzas" label="Finanzas" />
+                  <option value="General" label="General" />
+                </select>
+                {errors.area && touched.area && (
+                  <div className="text-red-500 text-xs mt-1">{errors.area}</div>
+                )}
+              </div>
             </div>
 
             <Button
@@ -145,9 +185,9 @@ export const Register = () => {
       </Formik>
 
       <div className="font-light text-slate-400 mt-4 text-sm">
-        Ya tienes una cuenta?{" "}
+        ¿Ya tienes una cuenta?{" "}
         <Link href="/login" className="font-bold">
-          Inicia sesion aqui!
+          Inicia sesión aquí!
         </Link>
       </div>
     </>

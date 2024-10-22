@@ -13,6 +13,8 @@ export type RegisterFormType = {
   dni: string;
   address?: string | null;
   birthDay?: string | null;
+  role?: string | null;
+  area?: string | null;
 };
 
 export type UserType = {
@@ -23,4 +25,6 @@ export type UserType = {
   password?: string | null;
   dni: string;
   birthDay?: Date | null;
+  role?: string | null;
+  area?: string | null;
 };

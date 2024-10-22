@@ -14,6 +14,8 @@ export const createUser = async ({
   dni,
   address,
   birthDay,
+  role,
+  area,
 }: RegisterFormType) => {
   try {
     if (password !== confirmPassword)
@@ -28,6 +30,8 @@ export const createUser = async ({
         dni,
         address,
         birthDay: new Date(birthDay || ""),
+        role,
+        area,
       },
     });
     return { success: userCreated };
@@ -45,6 +49,8 @@ export const updateUser = async ({
   confirmPassword,
   dni,
   address,
+  role,
+  area,
 }: RegisterFormType & { id: number }) => {
   try {
     let updatePass = {};
@@ -62,6 +68,8 @@ export const updateUser = async ({
         email,
         dni,
         address,
+        role,
+        area,
       },
       where: {
         id,

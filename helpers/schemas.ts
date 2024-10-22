@@ -19,6 +19,8 @@ export const RegisterSchema = object().shape({
   confirmPassword: string()
     .required("La confirmación de la contraseña es obligatoria")
     .oneOf([ref("password")], "Las contraseñas deben coincidir"),
+  role: string().required("El rol del usuario es obligatorio"),
+  area: string().required("El area del usuario es obligatoria"),
 });
 
 export const UpdateUserSchema = object().shape({
@@ -27,5 +29,7 @@ export const UpdateUserSchema = object().shape({
   address: string().required("La dirección es obligatoria"),
   email: string()
     .email("Este campo debe ser un correo electrónico válido")
-    .required("El correo electrónico es obligatorio")
+    .required("El correo electrónico es obligatorio"),
+  role: string().required("El rol del usuario es obligatorio"),
+  area: string().required("El area del usuario es obligatoria"),
 });

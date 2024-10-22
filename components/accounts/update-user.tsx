@@ -19,16 +19,15 @@ export const UpdateUser = ({
   isOpen,
   onOpenChange,
 }: {
-  user: RegisterFormType;
+  user: RegisterFormType & { id: number };
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }) => {
   const [loading, setLoading] = useState(false);
 
-  const initialValues: RegisterFormType = { ...user };
-  console.log("🚀 ~ initialValues:", initialValues)
+  const initialValues: RegisterFormType & { id: number } = { ...user };
 
-  const handleRegister = async (values: RegisterFormType) => {
+  const handleRegister = async (values: RegisterFormType & { id: number }) => {
     setLoading(true);
     const user = await updateUser(values);
     if (user.error) {
@@ -124,6 +123,52 @@ export const UpdateUser = ({
                             errorMessage={errors.address}
                             onChange={handleChange("address")}
                           />
+
+                          {/* Select para el rol */}
+                          <div>
+                            <label className="block text-sm font-medium text-gray-300">
+                              Rol
+                            </label>
+                            <select
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
+                              value={values.role || ""}
+                              onChange={handleChange("role")}
+                            >
+                              <option value="" label="Seleccione un rol" />
+                              <option
+                                value="administrador"
+                                label="Administrador"
+                              />
+                              <option value="empleado" label="Empleado" />
+                            </select>
+                            {errors.role && touched.role && (
+                              <div className="text-red-500 text-xs mt-1">
+                                {errors.role}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Select para el área */}
+                          <div>
+                            <label className="block text-sm font-medium text-gray-300">
+                              Área
+                            </label>
+                            <select
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
+                              value={values.area || ""}
+                              onChange={handleChange("area")}
+                            >
+                              <option value="" label="Seleccione un área" />
+                              <option value="RRHH" label="RRHH" />
+                              <option value="Finanzas" label="Finanzas" />
+                              <option value="General" label="General" />
+                            </select>
+                            {errors.area && touched.area && (
+                              <div className="text-red-500 text-xs mt-1">
+                                {errors.area}
+                              </div>
+                            )}
+                          </div>
                         </div>
 
                         <Button
