@@ -31,10 +31,24 @@ export const RenderCell = ({ data, columnKey, disableUser }: Props) => {
           <span>{data.email}</span>
         </div>
       );
-    case "birthDay":
+    case "location":
       return (
         <div>
-          <span>{cellValue.toLocaleDateString()}</span>
+          <span>{cellValue.description}</span>
+        </div>
+      );
+    case "TrabajadorCategories":
+      return (
+        <div>
+          {cellValue.map(
+            ({ category }: { category: { description: string } }) => (
+              <Chip size="sm" variant="flat" color={"default"}>
+                <span className="capitalize text-xs">
+                  {category.description}
+                </span>
+              </Chip>
+            )
+          )}
         </div>
       );
 
