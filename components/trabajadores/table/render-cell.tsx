@@ -8,10 +8,18 @@ import { UserType } from "@/helpers/types";
 interface Props {
   data: UserType;
   columnKey: string;
-  disableUser: Function;
+  disable: Function;
+  handleView: Function;
+  handleEdit: Function;
 }
 
-export const RenderCell = ({ data, columnKey, disableUser }: Props) => {
+export const RenderCell = ({
+  data,
+  columnKey,
+  disable,
+  handleView,
+  handleEdit,
+}: Props) => {
   const userItem = localStorage.getItem("userLogged");
   const userLogged = userItem ? JSON.parse(userItem) : null;
 
@@ -65,8 +73,9 @@ export const RenderCell = ({ data, columnKey, disableUser }: Props) => {
           <div>
             <Tooltip content="Detalles">
               <button
-                disabled={true}
-                onClick={() => console.log("Ver Usuario", data.id)}
+                onClick={() => {
+                  handleView(data);
+                }}
               >
                 <EyeIcon size={20} fill="#979797" />
               </button>
@@ -74,7 +83,11 @@ export const RenderCell = ({ data, columnKey, disableUser }: Props) => {
           </div>
           <div>
             <Tooltip content="Editar" color="secondary">
-              <button onClick={() => console.log("Editar Usuario", data.id)}>
+              <button
+                onClick={() => {
+                  handleEdit(data);
+                }}
+              >
                 <EditIcon size={20} fill="#979797" />
               </button>
             </Tooltip>
@@ -91,7 +104,7 @@ export const RenderCell = ({ data, columnKey, disableUser }: Props) => {
               <button
                 disabled={data.id === userLogged?.id}
                 onClick={() => {
-                  disableUser(data.id, !data.disabled);
+                  disable(data.id, !data.disabled);
                 }}
               >
                 <DeleteIcon size={20} fill="#FF0080" />

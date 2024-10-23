@@ -2,27 +2,30 @@
 import { Button, Input, Spinner } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { TableWrapper } from "./table/table";
-import { UserType } from "@/helpers/types";
+import { TrabajadorType, UserType } from "@/helpers/types";
 import { toast } from "react-toastify";
-import { exportProveedoresToCSV } from "./exportProveedoresToCSV";
+import { exportToCSV } from "./exportToCSV";
 import { TbFileExport } from "react-icons/tb";
-import { disableUser } from "@/actions/users.action";
 import {
+  disableTrabajador,
   getCategories,
   getLocations,
   getTrabajadores,
 } from "@/actions/trabajadores.action";
+import ViewTrabajador from "./view-trabajador";
 
 const initDataState: UserType[] = [];
 
 export const Trabajadores = () => {
   const [data, setData] = useState(initDataState);
+  console.log("🚀 ~ Trabajadores ~ data:", data)
   const [loading, setLoading] = useState(false);
   const [locations, setLocations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
-  console.log("🚀 ~ Trabajadores ~ data:", data);
+  const [selectedTrabajador, setSelectedTrabajador] =
+    useState<TrabajadorType | null>(null);
 
   const [search, setSearch] = useState({
     name: "",
@@ -44,8 +47,8 @@ export const Trabajadores = () => {
     if (Array.isArray(res.success)) setData(res.success);
   };
 
-  const handleDisableUser = async (id: number, value: boolean) => {
-    const res = await disableUser(id, value);
+  const handleDisableTrabajador = async (id: number, value: boolean) => {
+    const res = await disableTrabajador(id, value);
     if (res.error) {
       return toast.error(res.error);
     }
@@ -75,7 +78,7 @@ export const Trabajadores = () => {
     if (data.length === 0) {
       return toast.warning("No hay datos para exportar");
     }
-    exportProveedoresToCSV(data);
+    exportToCSV(data);
   };
 
   const handleSearch = () => {
@@ -104,8 +107,24 @@ export const Trabajadores = () => {
     );
   };
 
+  const handleView = (data: TrabajadorType) => {
+    setSelectedTrabajador(data);
+  };
+
+  const handleEdit = (data: TrabajadorType) => {
+    setSelectedTrabajador(data);
+  };
+
+  const handleCloseView = () => {
+    setSelectedTrabajador(null);
+  };
+
   return (
     <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
+      <ViewTrabajador
+        data={selectedTrabajador}
+        handleCloseView={handleCloseView}
+      />
       <h3 className="text-xl font-semibold">Listado de trabajadores</h3>
       <div className="flex justify-between flex-wrap gap-4 items-center">
         <div className="flex w-auto items-center gap-3 flex-wrap md:flex-nowrap">
@@ -114,6 +133,7 @@ export const Trabajadores = () => {
               input: "w-full",
               mainWrapper: "w-full",
             }}
+            className="min-w-72"
             placeholder="Buscar trabajador por nombre"
             onChange={({ target }) =>
               setSearch({
@@ -123,15 +143,18 @@ export const Trabajadores = () => {
               })
             }
             value={search.name}
+            endContent={
+              <Button
+                color="primary"
+                onPress={handleSearch}
+                size="sm"
+                isLoading={loading}
+              >
+                Buscar
+              </Button>
+            }
           />
-          <Button
-            color="primary"
-            onPress={handleSearch}
-            size="sm"
-            isLoading={loading}
-          >
-            Buscar
-          </Button>
+
           <select
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
             onChange={({ target }) => handleChangeCategory(target.value)}
@@ -171,7 +194,12 @@ export const Trabajadores = () => {
         </div>
       )}
       <div className="max-w-[95rem] mx-auto w-full">
-        <TableWrapper data={data} disableUser={handleDisableUser} />
+        <TableWrapper
+          data={data}
+          disable={handleDisableTrabajador}
+          handleView={handleView}
+          handleEdit={handleEdit}
+        />
       </div>
     </div>
   );

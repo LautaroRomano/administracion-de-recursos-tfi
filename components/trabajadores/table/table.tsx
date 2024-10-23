@@ -13,10 +13,14 @@ import { ProveedorType } from "@/helpers/types";
 
 export const TableWrapper = ({
   data,
-  disableUser,
+  disable,
+  handleView,
+  handleEdit,
 }: {
   data: ProveedorType[];
-  disableUser: Function;
+  disable: Function;
+  handleView: Function;
+  handleEdit: Function;
 }) => {
   return (
     <div className="w-full flex flex-col gap-4">
@@ -41,7 +45,9 @@ export const TableWrapper = ({
                   {RenderCell({
                     data: item,
                     columnKey: column.uid,
-                    disableUser,
+                    disable,
+                    handleView,
+                    handleEdit,
                   })}
                 </TableCell>
               ))}

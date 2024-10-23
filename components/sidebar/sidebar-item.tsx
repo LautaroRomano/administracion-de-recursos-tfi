@@ -8,9 +8,16 @@ interface Props {
   icon: React.ReactNode;
   isActive?: boolean;
   href?: string;
+  disabled?: boolean;
 }
 
-export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
+export const SidebarItem = ({
+  icon,
+  title,
+  isActive,
+  href = "",
+  disabled = false,
+}: Props) => {
   const { collapsed, setCollapsed } = useSidebarContext();
 
   const handleClick = () => {
@@ -20,15 +27,16 @@ export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
   };
   return (
     <NextLink
-      href={href}
+      href={disabled ? "#" : href}
       className="text-default-900 active:bg-none max-w-full"
     >
       <div
         className={clsx(
           isActive
             ? "bg-primary-100 [&_svg_path]:fill-primary-500"
-            : "hover:bg-default-100",
-          "flex gap-2 w-full min-h-[44px] h-full items-center px-3.5 rounded-xl cursor-pointer transition-all duration-150 active:scale-[0.98]"
+            : !disabled && "hover:bg-default-100",
+          "flex gap-2 w-full min-h-[44px] h-full items-center px-3.5 rounded-xl transition-all duration-150 active:scale-[0.98]",
+          disabled ? "cursor-not-allowed" : "cursor-pointer"
         )}
         onClick={handleClick}
       >

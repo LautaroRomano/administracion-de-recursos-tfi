@@ -1,16 +1,6 @@
 import React from "react";
 import { Sidebar } from "./sidebar.styles";
-import { Avatar, Tooltip } from "@nextui-org/react";
 import { HomeIcon } from "../icons/sidebar/home-icon";
-import { PaymentsIcon } from "../icons/sidebar/payments-icon";
-import { BalanceIcon } from "../icons/sidebar/balance-icon";
-import { CustomersIcon } from "../icons/sidebar/customers-icon";
-import { ProductsIcon } from "../icons/sidebar/products-icon";
-import { ReportsIcon } from "../icons/sidebar/reports-icon";
-import { DevIcon } from "../icons/sidebar/dev-icon";
-import { ViewIcon } from "../icons/sidebar/view-icon";
-import { SettingsIcon } from "../icons/sidebar/settings-icon";
-import { CollapseItems } from "./collapse-items";
 import { SidebarItem } from "./sidebar-item";
 import { SidebarMenu } from "./sidebar-menu";
 import { useSidebarContext } from "../layout/layout-context";
@@ -20,10 +10,12 @@ import { RiProductHuntFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 import { GrUserWorker } from "react-icons/gr";
 
-
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
   const { collapsed, setCollapsed } = useSidebarContext();
+
+  const userItem = localStorage.getItem("userLogged");
+  const userLogged = userItem ? JSON.parse(userItem) : null;
 
   return (
     <aside className="h-screen z-[20] sticky top-0">
@@ -45,12 +37,14 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
             />
             <SidebarMenu title="Menu Administrador">
               <SidebarItem
+                disabled={!userLogged || userLogged.role !== "administrador"}
                 isActive={pathname === "/proveedores"}
                 title="Proveedores"
                 icon={<RiProductHuntFill size={24} color="#717171" />}
                 href="proveedores"
               />
               <SidebarItem
+                disabled={!userLogged || userLogged.role !== "administrador"}
                 isActive={pathname === "/usuarios"}
                 title="Usuarios"
                 icon={<FaUser size={18} color="#717171" />}
@@ -59,9 +53,13 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
             </SidebarMenu>
             <SidebarMenu title="Menu RRHH">
               <SidebarItem
+                disabled={
+                  !userLogged ||
+                  !(userLogged.role === "empleado" && userLogged.area === "RRHH")
+                }
                 isActive={pathname === "/trabajadores"}
                 title="Trabajadores"
-                icon={<GrUserWorker size={24} color="#717171"/>}
+                icon={<GrUserWorker size={24} color="#717171" />}
                 href="/trabajadores"
               />
             </SidebarMenu>

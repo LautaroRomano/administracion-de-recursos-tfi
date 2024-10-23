@@ -38,6 +38,9 @@ export const getTrabajadores = async (
         },
         location: true,
       },
+      orderBy:{
+        name: 'asc'
+      }
     });
     return { success: data };
   } catch (error) {
@@ -46,9 +49,9 @@ export const getTrabajadores = async (
   }
 };
 
-export const disableUser = async (id: number, value: boolean) => {
+export const disableTrabajador = async (id: number, value: boolean) => {
   try {
-    const data = await prisma.user.update({
+    const data = await prisma.trabajadores.update({
       data: {
         disabled: value,
       },
