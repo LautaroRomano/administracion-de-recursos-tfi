@@ -71,11 +71,13 @@ async function main() {
         name: faker.person.fullName(),
         address: faker.location.streetAddress(),
         password: faker.string.hexadecimal(),
-        area: faker.helpers.arrayElement(['RRHH', 'Finanzas', 'General']),
+        area: faker.helpers.arrayElement(["RRHH", "Finanzas", "General"]),
         birthDay: faker.date.birthdate(),
         disabled: false,
-        dni: (faker.number.int({ min: 10000000, max: 99999999 }))+"",
-        role: faker.helpers.arrayElement(['administrador', 'empleado'])
+        profilePicture: faker.image.avatar(),
+        salary: "$" + faker.number.int({ min: 100000, max: 99999999 }),
+        dni: faker.number.int({ min: 10000000, max: 99999999 }) + "",
+        role: faker.helpers.arrayElement(["administrador", "empleado"]),
       },
     });
 

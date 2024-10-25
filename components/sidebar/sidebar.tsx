@@ -8,7 +8,8 @@ import { usePathname } from "next/navigation";
 import { UserType } from "@/helpers/types";
 import { RiProductHuntFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
-import { GrUserWorker } from "react-icons/gr";
+import { FaHammer } from "react-icons/fa6";
+import { PiBagSimpleFill } from "react-icons/pi";
 
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
@@ -58,9 +59,19 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
                   !(userLogged.role === "empleado" && userLogged.area === "RRHH")
                 }
                 isActive={pathname === "/trabajadores"}
-                title="Trabajadores"
-                icon={<GrUserWorker size={24} color="#717171" />}
+                title="Trabajadores (app)"
+                icon={<FaHammer size={24} color="#717171" />}
                 href="/trabajadores"
+              />
+              <SidebarItem
+                disabled={
+                  !userLogged ||
+                  !(userLogged.role === "empleado" && userLogged.area === "RRHH")
+                }
+                isActive={pathname === "/empleados"}
+                title="Empleados (empresa)"
+                icon={<PiBagSimpleFill  size={24} color="#717171" />}
+                href="/empleados"
               />
             </SidebarMenu>
           </div>
