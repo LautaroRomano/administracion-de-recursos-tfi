@@ -7,26 +7,20 @@ import { toast } from "react-toastify";
 import { exportToCSV } from "./exportToCSV";
 import { TbFileExport } from "react-icons/tb";
 import {
-  disableTrabajador,
-  getCategories,
-  getLocations,
-  getTrabajadores,
-} from "@/actions/trabajadores.action";
-import ViewTrabajador from "./view-trabajador";
+  disableUser
+} from "@/actions/users.action";
+import ViewTrabajador from "./view-empleado";
 import { getUsers } from "@/actions/users.action";
 
 const initDataState: UserType[] = [];
 
 export const Empleados = () => {
   const [data, setData] = useState(initDataState);
-  console.log("🚀 ~ Empleados ~ data:", data);
   const [loading, setLoading] = useState(false);
-  const [locations, setLocations] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [selectedTrabajador, setSelectedTrabajador] =
-    useState<TrabajadorType | null>(null);
+  const [editEmpleado, setEditEmpleado] = useState(false);
+  const [selectedEmpleado, setSelectedEmpleado] = useState<UserType | null>(
+    null
+  );
 
   const [search, setSearch] = useState("");
 
@@ -41,8 +35,8 @@ export const Empleados = () => {
       setData(res.success.filter((em) => em.role === "empleado"));
   };
 
-  const handleDisableTrabajador = async (id: number, value: boolean) => {
-    const res = await disableTrabajador(id, value);
+  const handleDisableEmpleado = async (id: number, value: boolean) => {
+    const res = await disableUser(id, value);
     if (res.error) {
       return toast.error(res.error);
     }
@@ -50,18 +44,8 @@ export const Empleados = () => {
     getData(search);
   };
 
-  const getMoreData = async () => {
-    const locations = await getLocations();
-    const categories = await getCategories();
-    //@ts-ignore
-    setLocations(locations.success);
-    //@ts-ignore
-    setCategories(categories.success);
-  };
-
   useEffect(() => {
     getData(null);
-    getMoreData();
   }, []);
 
   const handleExportCSV = () => {
@@ -75,33 +59,26 @@ export const Empleados = () => {
     getData(search);
   };
 
-  const handleChangeCategory = (id: string) => {
-    setSelectedCategory(id);
-    getData(search);
-  };
-
-  const handleChangeLocation = (id: string) => {
-    setSelectedLocation(id);
-    getData(search);
-  };
-
   const handleView = (data: TrabajadorType) => {
-    setSelectedTrabajador(data);
+    setSelectedEmpleado(data);
+    setEditEmpleado(false);
   };
 
   const handleEdit = (data: TrabajadorType) => {
-    setSelectedTrabajador(data);
+    setSelectedEmpleado(data);
+    setEditEmpleado(true);
   };
 
   const handleCloseView = () => {
-    setSelectedTrabajador(null);
+    setSelectedEmpleado(null);
   };
 
   return (
     <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
       <ViewTrabajador
-        data={selectedTrabajador}
+        data={selectedEmpleado}
         handleCloseView={handleCloseView}
+        editEmpleado={editEmpleado}
       />
       <h3 className="text-xl font-semibold">Listado de empleados</h3>
       <div className="flex justify-between flex-wrap gap-4 items-center">
@@ -126,29 +103,6 @@ export const Empleados = () => {
               </Button>
             }
           />
-
-          <select
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
-            onChange={({ target }) => handleChangeCategory(target.value)}
-            value={selectedCategory}
-          >
-            <option value="">No seleccionado</option>
-            {categories.map((cat) => (
-              //@ts-ignore
-              <option value={cat.id}>{cat.description}</option>
-            ))}
-          </select>
-          <select
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
-            onChange={({ target }) => handleChangeLocation(target.value)}
-            value={selectedLocation}
-          >
-            <option value="">No seleccionado</option>
-            {locations.map((lo) => (
-              //@ts-ignore
-              <option value={lo.id}>{lo.description}</option>
-            ))}
-          </select>
         </div>
         {/* <div className="flex flex-row gap-3.5 flex-wrap">
           <Button
@@ -168,7 +122,7 @@ export const Empleados = () => {
       <div className="max-w-[95rem] mx-auto w-full">
         <TableWrapper
           data={data}
-          disable={handleDisableTrabajador}
+          disable={handleDisableEmpleado}
           handleView={handleView}
           handleEdit={handleEdit}
         />

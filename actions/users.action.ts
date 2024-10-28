@@ -25,6 +25,8 @@ export const getUsers = async (search: string | null) => {
         area: true,
         birthDay: true,
         disabled: true,
+        profilePicture: true,
+        salary: true,
       },
     });
     return { success: data };

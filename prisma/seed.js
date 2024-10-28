@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import { faker } from "@faker-js/faker";
+const { PrismaClient } = require("@prisma/client");
+const { faker } = require("@faker-js/faker");
 
 const prisma = new PrismaClient();
 
@@ -75,7 +75,7 @@ async function main() {
         birthDay: faker.date.birthdate(),
         disabled: false,
         profilePicture: faker.image.avatar(),
-        salary: "$" + faker.number.int({ min: 100000, max: 99999999 }),
+        salary: "$" + faker.number.int({ min: 100000, max: 9999999 }),
         dni: faker.number.int({ min: 10000000, max: 99999999 }) + "",
         role: faker.helpers.arrayElement(["administrador", "empleado"]),
       },

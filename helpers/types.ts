@@ -27,6 +27,8 @@ export type UserType = {
   birthDay?: Date | null;
   role?: string | null;
   area?: string | null;
+  profilePicture?: string | null;
+  salary?: string | null;
   disabled?: boolean | null;
 };
 
