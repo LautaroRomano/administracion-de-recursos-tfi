@@ -6,9 +6,7 @@ import { TrabajadorType, UserType } from "@/helpers/types";
 import { toast } from "react-toastify";
 import { exportToCSV } from "./exportToCSV";
 import { TbFileExport } from "react-icons/tb";
-import {
-  disableUser
-} from "@/actions/users.action";
+import { disableUser } from "@/actions/users.action";
 import ViewTrabajador from "./view-empleado";
 import { getUsers } from "@/actions/users.action";
 
@@ -32,7 +30,7 @@ export const Empleados = () => {
       return toast.error(res.error);
     }
     if (Array.isArray(res.success))
-      setData(res.success.filter((em) => em.role === "empleado"));
+      setData(res.success);
   };
 
   const handleDisableEmpleado = async (id: number, value: boolean) => {
@@ -71,6 +69,7 @@ export const Empleados = () => {
 
   const handleCloseView = () => {
     setSelectedEmpleado(null);
+    getData(search);
   };
 
   return (

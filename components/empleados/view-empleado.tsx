@@ -1,4 +1,5 @@
-import { TrabajadorType, UserType } from "@/helpers/types";
+import { updateUser } from "@/actions/users.action";
+import { UserType } from "@/helpers/types";
 import {
   Modal,
   ModalContent,
@@ -7,13 +8,10 @@ import {
   ModalFooter,
   Button,
   Image,
-  Chip,
-  Spacer,
-  Divider,
   Input,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { IoMdDownload } from "react-icons/io";
+import { toast } from "react-toastify";
 
 export default function ViewTrabajador({
   data,
@@ -35,6 +33,17 @@ export default function ViewTrabajador({
     const { name, value } = target;
     //@ts-ignore
     setEmpleadoData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleEditUser = async () => {
+    if (empleadoData !== null) {
+      const res = await updateUser(empleadoData);
+      if (res.error) return toast.error(res.error);
+      else {
+        toast.success("Empleado actualizado con exito!");
+        return handleCloseView();
+      }
+    }
   };
 
   return (
@@ -161,40 +170,33 @@ export default function ViewTrabajador({
                       {/* Rol */}
                       <div className="w-full text-left">
                         <h3 className="text-md font-semibold">Rol</h3>
-                        <Input
-                          className="text-xl font-semibold"
-                          placeholder="Rol"
+                        <select
+                          className="mt-1 block bg-[#27272a] w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
                           value={empleadoData.role || ""}
-                          onChange={handleChangeEmpleadoData}
                           name="role"
-                        />
+                          onChange={handleChangeEmpleadoData}
+                        >
+                          <option value="" label="Seleccione un rol" />
+                          <option value="administrador" label="Administrador" />
+                          <option value="empleado" label="Empleado" />
+                        </select>
                       </div>
                       {/* Area */}
                       <div className="w-full text-left">
                         <h3 className="text-md font-semibold">Area</h3>
-                        <Input
-                          className="text-xl font-semibold"
-                          placeholder="Area"
+                        <select
+                          className="mt-1 block bg-[#27272a] w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
                           value={empleadoData.area || ""}
-                          onChange={handleChangeEmpleadoData}
                           name="area"
-                        />
+                          onChange={handleChangeEmpleadoData}
+                        >
+                          <option value="" label="Seleccione un área" />
+                          <option value="RRHH" label="RRHH" />
+                          <option value="Finanzas" label="Finanzas" />
+                          <option value="General" label="General" />
+                        </select>
                       </div>
 
-                      {/* Fecha de nacimiento */}
-                      <div className="w-full text-left">
-                        <h3 className="text-md font-semibold">
-                          Fecha de nacimiento
-                        </h3>
-                        <Input
-                          type="date"
-                          className="text-xl font-semibold"
-                          placeholder="Fecha de nacimiento"
-                          value={empleadoData?.birthDay?.toDateString() || ""}
-                          onChange={handleChangeEmpleadoData}
-                          name="birthDay"
-                        />
-                      </div>
                       {/* Dirección */}
                       <div className="w-full text-left">
                         <h3 className="text-md font-semibold">Dirección</h3>
@@ -237,13 +239,7 @@ export default function ViewTrabajador({
                   Cerrar
                 </Button>
                 {editEmpleado && (
-                  <Button
-                    color="primary"
-                    onPress={() => {
-                      onClose();
-                      handleCloseView();
-                    }}
-                  >
+                  <Button color="primary" onPress={handleEditUser}>
                     Guardar
                   </Button>
                 )}
