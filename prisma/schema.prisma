@@ -14,20 +14,21 @@ datasource db {
 }
 
 model User {
-  id             Int       @id @default(autoincrement())
-  email          String    @unique
-  name           String
-  address        String?
-  password       String
-  dni            String?
-  birthDay       DateTime?
-  role           String?
-  area           String?
-  profilePicture String?
-  salary         String?
-  createdAt      DateTime  @default(now())
-  updateAt       DateTime  @updatedAt
-  disabled       Boolean   @default(false)
+  id                  Int                   @id @default(autoincrement())
+  email               String                @unique
+  name                String
+  address             String?
+  password            String
+  dni                 String?
+  birthDay            DateTime?
+  role                String?
+  area                String?
+  profilePicture      String?
+  salary              String?
+  createdAt           DateTime              @default(now())
+  updateAt            DateTime              @updatedAt
+  disabled            Boolean               @default(false)
+  interactionsHistory InteractionsHistory[]
 }
 
 model Proveedores {
@@ -82,4 +83,14 @@ model TrabajadorCategories {
   category     Categories   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@id([trabajadorId, categoryId])
+}
+
+model InteractionsHistory {
+  id          Int      @id @default(autoincrement())
+  description String
+  oldValue    String
+  newValue    String
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
 }
