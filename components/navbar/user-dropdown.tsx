@@ -78,7 +78,8 @@ export const UserDropdown = ({ user }: { user: UserType | null }) => {
             ...user,
             password: "",
             confirmPassword: "",
-            birthDay:""
+            birthDay:"",
+            dni: user.dni ||''
           }}
           isOpen={isOpen}
           onOpenChange={onOpenChange}

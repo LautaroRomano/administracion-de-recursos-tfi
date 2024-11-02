@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, { useEffect, useState } from "react";
 import { Sidebar } from "./sidebar.styles";
 import { HomeIcon } from "../icons/sidebar/home-icon";
 import { SidebarItem } from "./sidebar-item";
@@ -16,9 +17,14 @@ import { GiPayMoney } from "react-icons/gi";
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
   const { collapsed, setCollapsed } = useSidebarContext();
+  const [userLogged, setUserLogged] = useState<UserType | null>(null);
 
-  const userItem = localStorage.getItem("userLogged");
-  const userLogged = userItem ? JSON.parse(userItem) : null;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userItem = localStorage.getItem("userLogged");
+      setUserLogged(userItem ? JSON.parse(userItem) : null);
+    }
+  }, []);
 
   return (
     <aside className="h-screen z-[20] sticky top-0">

@@ -4,32 +4,27 @@ import React from "react";
 const items = [
   {
     name: "Jose Perez",
-    picture: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    amount: "4500 USD",
+    amount: "4500 ARS",
     date: "9/20/2021",
   },
   {
     name: "Jose Perez",
-    picture: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    amount: "4500 USD",
+    amount: "4500 ARS",
     date: "9/20/2021",
   },
   {
     name: "Jose Perez",
-    picture: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    amount: "4500 USD",
+    amount: "4500 ARS",
     date: "9/20/2021",
   },
   {
     name: "Jose Perez",
-    picture: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    amount: "4500 USD",
+    amount: "4500 ARS",
     date: "9/20/2021",
   },
   {
     name: "Jose Perez",
-    picture: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    amount: "4500 USD",
+    amount: "4500 ARS",
     date: "9/20/2021",
   },
 ];
@@ -41,21 +36,14 @@ export const CardTransactions = () => {
         <div className="flex gap-2.5 justify-center">
           <div className="flex flex-col border-dashed border-2 border-divider py-2 px-6 rounded-xl">
             <span className="text-default-900 text-xl font-semibold">
-              Latest Transactions
+              Ultimas Transactions
             </span>
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 ">
+        <div className="flex flex-col gap-6 justify-center">
           {items.map((item) => (
-            <div key={item.name} className="grid grid-cols-4 w-full">
-              <div className="w-full">
-                <Avatar
-                  isBordered
-                  color="secondary"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                />
-              </div>
+            <div key={item.name} className="grid grid-cols-3 w-full">
 
               <span className="text-default-900  font-semibold">
                 {item.name}

@@ -23,9 +23,14 @@ export default function ViewTrabajador({
   editEmpleado: boolean;
 }) {
   const [empleadoData, setEmpleadoData] = useState<null | UserType>(null);
+  const [userLogged, setUserLogged] = useState<UserType | null>(null);
 
-  const userItem = localStorage.getItem("userLogged");
-  const userLogged = userItem ? JSON.parse(userItem) : null;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userItem = localStorage.getItem("userLogged");
+      setUserLogged(userItem ? JSON.parse(userItem) : null);
+    }
+  }, []);
 
   useEffect(() => {
     if (data && data.id) setEmpleadoData(data);
@@ -39,7 +44,7 @@ export default function ViewTrabajador({
   };
 
   const handleEditUser = async () => {
-    if (empleadoData !== null) {
+    if (empleadoData !== null && userLogged) {
       const res = await updateUser({ ...empleadoData, adminId: userLogged.id });
       if (res.error) return toast.error(res.error);
       else {

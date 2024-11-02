@@ -1,5 +1,4 @@
-import { User, Tooltip, Chip } from "@nextui-org/react";
-import React from "react";
+import { Tooltip, Chip } from "@nextui-org/react";
 import { DeleteIcon } from "@/components/icons/table/delete-icon";
 import { EditIcon } from "@/components/icons/table/edit-icon";
 import { EyeIcon } from "@/components/icons/table/eye-icon";

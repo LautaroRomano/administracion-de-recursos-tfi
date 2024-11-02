@@ -49,8 +49,8 @@ export const RenderCell = ({
       return (
         <div>
           {cellValue.map(
-            ({ category }: { category: { description: string } }) => (
-              <Chip size="sm" variant="flat" color={"default"}>
+            ({ category }: { category: { description: string } },i:number) => (
+              <Chip size="sm" variant="flat" color={"default"} key={i}>
                 <span className="capitalize text-xs">
                   {category.description}
                 </span>

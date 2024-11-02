@@ -163,7 +163,7 @@ export const Trabajadores = () => {
             <option value="">No seleccionado</option>
             {categories.map((cat) => (
               //@ts-ignore
-              <option value={cat.id}>{cat.description}</option>
+              <option value={cat.id} key={cat.id}>{cat.description}</option>
             ))}
           </select>
           <select
@@ -174,7 +174,7 @@ export const Trabajadores = () => {
             <option value="">No seleccionado</option>
             {locations.map((lo) => (
               //@ts-ignore
-              <option value={lo.id}>{lo.description}</option>
+              <option value={lo.id} key={lo.id}>{lo.description}</option>
             ))}
           </select>
         </div>

@@ -110,7 +110,7 @@ export default function ViewTrabajador({
                       <div className="flex w-full gap-2 flex-wrap">
                         {data.TrabajadorCategories.length > 0 ? (
                           data.TrabajadorCategories.map((category, index) => (
-                            <Chip>
+                            <Chip key={index}>
                               {
                                 //@ts-ignore
                                 category.category.description
