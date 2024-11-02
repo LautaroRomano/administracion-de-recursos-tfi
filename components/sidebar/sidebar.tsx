@@ -11,6 +11,7 @@ import { FaUser } from "react-icons/fa";
 import { FaHammer } from "react-icons/fa6";
 import { PiBagSimpleFill } from "react-icons/pi";
 import { FaHistory } from "react-icons/fa";
+import { GiPayMoney } from "react-icons/gi";
 
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
@@ -80,6 +81,18 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
                 title="Empleados (empresa)"
                 icon={<PiBagSimpleFill  size={24} color="#717171" />}
                 href="/empleados"
+              />
+            </SidebarMenu>
+            <SidebarMenu title="Menu Finanzas">
+              <SidebarItem
+                disabled={
+                  !userLogged ||
+                  !(userLogged.role === "empleado" && userLogged.area === "Finanzas")
+                }
+                isActive={pathname === "/comisiones"}
+                title="Comisiones"
+                icon={<GiPayMoney size={24} color="#717171" />}
+                href="/comisiones"
               />
             </SidebarMenu>
           </div>

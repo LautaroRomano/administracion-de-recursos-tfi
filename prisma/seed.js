@@ -84,6 +84,29 @@ async function main() {
     console.log(`Created trabajador with id: ${trabajador.id}`);
     console.log(`Created trabajador with id: ${usuario.id}`);
   }
+
+  for (let i = 0; i < 50; i++) {
+    const usuarios = await prisma.user.findMany();
+    const trabajadores = await prisma.trabajadores.findMany();
+
+    await prisma.interactionsHistory.create({
+      data: {
+        userId: faker.helpers.arrayElement(usuarios).id,
+        description: `Se cambio el salario del usuario ${faker.person.fullName()}`,
+        oldValue: "$" + faker.number.int({ min: 100000, max: 9999999 }),
+        newValue: "$" + faker.number.int({ min: 100000, max: 9999999 }),
+      },
+    });
+
+    await prisma.commissions.create({
+      data: {
+        trabajadorId: faker.helpers.arrayElement(trabajadores).id,
+        amount: faker.number.int({ min: 1000, max: 9999 }),
+        createdAt: faker.date.anytime()
+      }
+    })
+  }
+
 }
 
 main()
