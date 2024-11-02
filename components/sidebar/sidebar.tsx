@@ -10,6 +10,7 @@ import { RiProductHuntFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 import { FaHammer } from "react-icons/fa6";
 import { PiBagSimpleFill } from "react-icons/pi";
+import { FaHistory } from "react-icons/fa";
 
 export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
   const pathname = usePathname();
@@ -50,6 +51,13 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
                 title="Usuarios"
                 icon={<FaUser size={18} color="#717171" />}
                 href="usuarios"
+              />
+              <SidebarItem
+                disabled={!userLogged || userLogged.role !== "administrador"}
+                isActive={pathname === "/interacciones"}
+                title="Historial interacciones"
+                icon={<FaHistory size={18} color="#717171" />}
+                href="interacciones"
               />
             </SidebarMenu>
             <SidebarMenu title="Menu RRHH">

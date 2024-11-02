@@ -61,7 +61,8 @@ export const updateUser = async ({
   area,
   role,
   salary,
-}: UserType) => {
+  adminId,
+}: UserType & { adminId: number }) => {
   try {
     if (!name || name.length === 0) return { error: "Debe ingresar un nombre" };
     if (!address || address.length === 0)
@@ -70,6 +71,52 @@ export const updateUser = async ({
     if (!role || role.length === 0) return { error: "Debe ingresar un rol" };
     if (!salary || salary.length === 0)
       return { error: "Debe ingresar un salario" };
+
+    const oldUser = await prisma.user.findFirst({ where: { id } });
+
+    if (oldUser?.area !== area) {
+      await prisma.interactionsHistory.create({
+        data: {
+          userId: adminId,
+          description: `Se cambio el area del usuario ${name}`,
+          oldValue: oldUser?.area || "SI VALOR",
+          newValue: area,
+        },
+      });
+    }
+    
+    if (oldUser?.role !== role) {
+      await prisma.interactionsHistory.create({
+        data: {
+          userId: adminId,
+          description: `Se cambio el rol del usuario ${name}`,
+          oldValue: oldUser?.role || "SI VALOR",
+          newValue: role
+        },
+      });
+    }
+   
+    if (oldUser?.role !== role) {
+      await prisma.interactionsHistory.create({
+        data: {
+          userId: adminId,
+          description: `Se cambio el rol del usuario ${name}`,
+          oldValue: oldUser?.role || "SI VALOR",
+          newValue: role
+        },
+      });
+    }
+
+    if (oldUser?.salary !== salary) {
+      await prisma.interactionsHistory.create({
+        data: {
+          userId: adminId,
+          description: `Se cambio el sueldo del usuario ${name}`,
+          oldValue: oldUser?.salary || "SI VALOR",
+          newValue: salary
+        },
+      });
+    }
 
     const data = await prisma.user.update({
       data: {

@@ -61,6 +61,7 @@ model Trabajadores {
   disabled             Boolean                @default(false)
   profilePicture       String?
   TrabajadorCategories TrabajadorCategories[]
+  Commissions          Commissions[]
 }
 
 model Locations {
@@ -93,4 +94,12 @@ model InteractionsHistory {
   createdAt   DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id])
   userId      Int
+}
+
+model Commissions {
+  id           Int          @id @default(autoincrement())
+  amount       Float
+  trabajador   Trabajadores @relation(fields: [trabajadorId], references: [id])
+  trabajadorId Int
+  createdAt    DateTime     @default(now())
 }

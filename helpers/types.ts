@@ -77,3 +77,19 @@ export type TrabajadorCategory = {
   trabajadorId: number;
   categoryId: number;
 };
+
+export type InteractionsHistoryType = {
+  id: number;
+  description: string;
+  oldValue: string;
+  newValue: string;
+  createdAt: Date;
+  userId: number;
+};
+
+export type CommissionsType = {
+  id: number;
+  amount: number;
+  trabajadorId: number;
+  createdAt: Date;
+};

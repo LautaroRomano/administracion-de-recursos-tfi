@@ -24,6 +24,9 @@ export default function ViewTrabajador({
 }) {
   const [empleadoData, setEmpleadoData] = useState<null | UserType>(null);
 
+  const userItem = localStorage.getItem("userLogged");
+  const userLogged = userItem ? JSON.parse(userItem) : null;
+
   useEffect(() => {
     if (data && data.id) setEmpleadoData(data);
   }, [data]);
@@ -37,7 +40,7 @@ export default function ViewTrabajador({
 
   const handleEditUser = async () => {
     if (empleadoData !== null) {
-      const res = await updateUser(empleadoData);
+      const res = await updateUser({ ...empleadoData, adminId: userLogged.id });
       if (res.error) return toast.error(res.error);
       else {
         toast.success("Empleado actualizado con exito!");
