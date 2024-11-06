@@ -1,6 +1,7 @@
 "use server";
 import { UserType } from "@/helpers/types";
 import { PrismaClient } from "@prisma/client";
+import { hash } from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -62,6 +63,7 @@ export const updateUser = async ({
   role,
   salary,
   adminId,
+  password
 }: UserType & { adminId: number }) => {
   try {
     if (!name || name.length === 0) return { error: "Debe ingresar un nombre" };
@@ -71,6 +73,12 @@ export const updateUser = async ({
     if (!role || role.length === 0) return { error: "Debe ingresar un rol" };
     if (!salary || salary.length === 0)
       return { error: "Debe ingresar un salario" };
+
+    let updatePass = {};
+    if (password && password.length > 0) {
+      const hashedPassword = await hash(password, 10);
+      updatePass = { password: hashedPassword };
+    }
 
     const oldUser = await prisma.user.findFirst({ where: { id } });
 
@@ -120,6 +128,7 @@ export const updateUser = async ({
 
     const data = await prisma.user.update({
       data: {
+        ...updatePass,
         name,
         address,
         role,

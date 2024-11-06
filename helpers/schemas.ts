@@ -2,7 +2,6 @@ import { number, object, ref, string } from "yup";
 
 export const LoginSchema = object().shape({
   email: string()
-    .email("Este campo debe ser un correo electrónico válido")
     .required("El correo electrónico es obligatorio"),
   password: string().required("La contraseña es obligatoria"),
 });
@@ -19,7 +18,6 @@ export const RegisterSchema = object().shape({
   confirmPassword: string()
     .required("La confirmación de la contraseña es obligatoria")
     .oneOf([ref("password")], "Las contraseñas deben coincidir"),
-  role: string().required("El rol del usuario es obligatorio"),
   area: string().required("El area del usuario es obligatoria"),
 });
 

@@ -45,11 +45,11 @@ export const Register = () => {
           theme: "dark",
         });
       } else {
-        toast("Ingresaste con éxito!", {
+        toast("Registrado con éxito!", {
           theme: "dark",
         });
-        localStorage.setItem("userLogged", JSON.stringify(user.success));
-        router.replace("/");
+        // localStorage.setItem("userLogged", JSON.stringify(user.success));
+        router.replace("/login");
       }
     },
     [router]
@@ -132,24 +132,6 @@ export const Register = () => {
                 onChange={handleChange("birthDay")}
               />
 
-              {/* Select para el rol */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300">
-                  Rol
-                </label>
-                <select
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
-                  value={values.role || ""}
-                  onChange={handleChange("role")}
-                >
-                  <option value="" label="Seleccione un rol" />
-                  <option value="administrador" label="Administrador" />
-                  <option value="empleado" label="Empleado" />
-                </select>
-                {errors.role && touched.role && (
-                  <div className="text-red-500 text-xs mt-1">{errors.role}</div>
-                )}
-              </div>
 
               {/* Select para el área */}
               <div>
@@ -164,7 +146,6 @@ export const Register = () => {
                   <option value="" label="Seleccione un área" />
                   <option value="RRHH" label="RRHH" />
                   <option value="Finanzas" label="Finanzas" />
-                  <option value="General" label="General" />
                 </select>
                 {errors.area && touched.area && (
                   <div className="text-red-500 text-xs mt-1">{errors.area}</div>

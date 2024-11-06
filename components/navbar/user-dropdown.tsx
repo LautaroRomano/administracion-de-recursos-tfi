@@ -53,12 +53,12 @@ export const UserDropdown = ({ user }: { user: UserType | null }) => {
             <p>Iniciaste como</p>
             <p>{user?.name}</p>
           </DropdownItem>
-          <DropdownItem
+          {/* <DropdownItem
             key="updateProfile"
             className="flex flex-col justify-start w-full items-start"
           >
             <p>Actualizar perfil</p>
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem
             key="logout"
             color="danger"

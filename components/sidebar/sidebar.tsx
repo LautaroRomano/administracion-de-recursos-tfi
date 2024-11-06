@@ -39,7 +39,7 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
         <div className="flex flex-col justify-between h-full">
           <div className={Sidebar.Body()}>
             <SidebarItem
-              title="Home"
+              title="Inicio"
               icon={<HomeIcon />}
               isActive={pathname === "/"}
               href="/"
@@ -52,13 +52,13 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
                 icon={<RiProductHuntFill size={24} color="#717171" />}
                 href="proveedores"
               />
-              <SidebarItem
+         {/*      <SidebarItem
                 disabled={!userLogged || userLogged.role !== "administrador"}
                 isActive={pathname === "/usuarios"}
                 title="Usuarios"
                 icon={<FaUser size={18} color="#717171" />}
                 href="usuarios"
-              />
+              /> */}
               <SidebarItem
                 disabled={!userLogged || userLogged.role !== "administrador"}
                 isActive={pathname === "/interacciones"}
@@ -71,7 +71,7 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
               <SidebarItem
                 disabled={
                   !userLogged ||
-                  !(userLogged.role === "empleado" && userLogged.area === "RRHH")
+                  !((userLogged.role === "empleado" && userLogged.area === "RRHH") || userLogged.role === "administrador")
                 }
                 isActive={pathname === "/trabajadores"}
                 title="Trabajadores (app)"
@@ -81,7 +81,7 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
               <SidebarItem
                 disabled={
                   !userLogged ||
-                  !(userLogged.role === "empleado" && userLogged.area === "RRHH")
+                  !((userLogged.role === "empleado" && userLogged.area === "RRHH") || userLogged.role === "administrador")
                 }
                 isActive={pathname === "/empleados"}
                 title="Empleados (empresa)"
@@ -93,7 +93,7 @@ export const SidebarWrapper = ({ user }: { user: UserType | null }) => {
               <SidebarItem
                 disabled={
                   !userLogged ||
-                  !(userLogged.role === "empleado" && userLogged.area === "Finanzas")
+                  !((userLogged.role === "empleado" && userLogged.area === "Finanzas") || userLogged.role === "administrador")
                 }
                 isActive={pathname === "/comisiones"}
                 title="Comisiones"

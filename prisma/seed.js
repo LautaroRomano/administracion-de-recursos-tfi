@@ -32,6 +32,23 @@ async function main() {
   const allLocations = await prisma.locations.findMany();
   const allCategories = await prisma.categories.findMany();
 
+  //crear un admin
+  await prisma.user.create({
+    data: {
+      email: 'admin',
+      name: 'Administrador',
+      address: faker.location.streetAddress(),
+      password: 'admin',
+      area: "General",
+      birthDay: faker.date.birthdate(),
+      disabled: false,
+      profilePicture: faker.image.avatar(),
+      salary: "$" + 0,
+      dni: faker.number.int({ min: 10000000, max: 99999999 }) + "",
+      role: "administrador",
+    },
+  });
+
   // Crear trabajadores aleatorios
   for (let i = 0; i < 25; i++) {
     // Seleccionar una ubicación y algunas categorías al azar

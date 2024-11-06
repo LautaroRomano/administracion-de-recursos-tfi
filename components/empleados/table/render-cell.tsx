@@ -1,8 +1,9 @@
 import { Tooltip, Chip } from "@nextui-org/react";
-import { DeleteIcon } from "@/components/icons/table/delete-icon";
 import { EditIcon } from "@/components/icons/table/edit-icon";
 import { EyeIcon } from "@/components/icons/table/eye-icon";
 import { UserType } from "@/helpers/types";
+import { FaRegCircleCheck as FaCheckCircle } from "react-icons/fa6";
+import { MdOutlinePersonOff as MdPersonOff } from "react-icons/md";
 
 interface Props {
   data: UserType;
@@ -70,7 +71,7 @@ export const RenderCell = ({
               content={
                 data.id === userLogged?.id
                   ? "No puedes borrarte a ti mismo"
-                  : "Eliminar"
+                  : data.disabled?"Habilitar Usuario": "Deshabilitar Usuario"
               }
               color="danger"
             >
@@ -80,7 +81,11 @@ export const RenderCell = ({
                   disable(data.id, !data.disabled);
                 }}
               >
-                <DeleteIcon size={20} fill="#FF0080" />
+                {data.disabled ? (
+                  <FaCheckCircle size={20} fill="#FF0080" />
+                ) : (
+                  <MdPersonOff size={20} fill="#FF0080" />
+                )}
               </button>
             </Tooltip>
           </div>

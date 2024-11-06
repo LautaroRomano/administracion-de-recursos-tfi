@@ -176,7 +176,7 @@ export default function ViewTrabajador({
                       </div>
 
                       {/* Rol */}
-                      <div className="w-full text-left">
+                      {/* <div className="w-full text-left">
                         <h3 className="text-md font-semibold">Rol</h3>
                         <select
                           className="mt-1 block bg-[#27272a] w-full rounded-md border-gray-300 shadow-sm sm:text-sm h-10 px-2"
@@ -188,7 +188,7 @@ export default function ViewTrabajador({
                           <option value="administrador" label="Administrador" />
                           <option value="empleado" label="Empleado" />
                         </select>
-                      </div>
+                      </div> */}
                       {/* Area */}
                       <div className="w-full text-left">
                         <h3 className="text-md font-semibold">Area</h3>
@@ -201,7 +201,6 @@ export default function ViewTrabajador({
                           <option value="" label="Seleccione un área" />
                           <option value="RRHH" label="RRHH" />
                           <option value="Finanzas" label="Finanzas" />
-                          <option value="General" label="General" />
                         </select>
                       </div>
 
@@ -226,9 +225,21 @@ export default function ViewTrabajador({
                           readOnly
                           value={
                             empleadoData.disabled
-                              ? "Habilitado"
-                              : "Deshabilitado"
+                              ? "Deshabilitado"
+                              : "Habilitado"
                           }
+                        />
+                      </div>
+
+                      {/* Contraseña */}
+                      <div className="w-full text-left">
+                        <h3 className="text-md font-semibold">Contraseña</h3>
+                        <Input
+                          className="text-xl font-semibold"
+                          placeholder="Contraseña"
+                          value={empleadoData.password || ""}
+                          onChange={handleChangeEmpleadoData}
+                          name="password"
                         />
                       </div>
                     </div>
